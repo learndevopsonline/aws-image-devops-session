@@ -19,7 +19,7 @@ case $region in
 esac
 
 for REGION in ${region[*]}; do 
-  echo ""
+  echo "Checking in Region "
 done 
 
 
