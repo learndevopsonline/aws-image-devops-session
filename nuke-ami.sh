@@ -20,7 +20,7 @@ esac
 
 for REGION in ${region[*]}; do 
   echo -n "Checking in Region - $REGION" - 
-  echo -e ""
+  
 done 
 
 
