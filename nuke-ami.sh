@@ -1,3 +1,3 @@
 #!/bin/bash 
 
-read -p 'Enter which region'
+read -p 'Enter which region [A-All]:'
