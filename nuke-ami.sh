@@ -15,5 +15,7 @@ case $region in
   *) 
     echo "Invalid Region, Try again"
     exit 1
-    
+    ;;
+esac
+
 
