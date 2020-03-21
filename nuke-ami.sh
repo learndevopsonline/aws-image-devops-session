@@ -23,3 +23,4 @@ for REGION in ${region[*]}; do
   sleep 1
 done 
 
+
