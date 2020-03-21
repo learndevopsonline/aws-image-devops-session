@@ -4,5 +4,5 @@ read -p 'Enter which region [A-All]:' region
 
 case $region in 
   A|a) 
-    region=()
+    region=(us-east-1 )
 
