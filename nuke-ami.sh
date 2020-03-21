@@ -13,4 +13,7 @@ case $region in
     region=$region
     ;;
   *) 
+    echo "Invalid Region, Try again"
+    exit 1
+    
 
