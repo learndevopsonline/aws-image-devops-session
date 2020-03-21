@@ -7,7 +7,7 @@ read -p 'Enter which region [A-All]:' region
 
 case $region in 
   A|a) 
-    region=(`echo `) 
+    region=(`echo $ALL_REGIONS`) 
     ;; 
-
+  
 
