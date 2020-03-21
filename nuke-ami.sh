@@ -18,4 +18,5 @@ case $region in
     ;;
 esac
 
+for regio
 
