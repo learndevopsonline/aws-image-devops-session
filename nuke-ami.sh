@@ -18,5 +18,5 @@ case $region in
     ;;
 esac
 
-for regio
+for REGION in ${region[*]}
 
