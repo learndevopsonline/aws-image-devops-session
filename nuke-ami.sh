@@ -19,8 +19,7 @@ case $region in
 esac
 
 for REGION in ${region[*]}; do 
-  echo $REGION 
-  sleep 1
+  
 done 
 
 
