@@ -1,0 +1,35 @@
+{
+    "builders": [{
+      "profile": "default",
+      "type": "amazon-ebs",
+      "region": "us-east-1",
+      "source_ami": "ami-02946ce583813a223",
+      "instance_type": "t2.micro",
+      "ssh_username": "centos",
+      "ami_groups": "all",
+      "ami_name": "Centos-7-DevOps-Practice",
+      "ami_regions": ["us-east-1", "us-east-2", "us-west-2"],
+      "force_deregister": true,
+      "force_delete_snapshot": true,
+      "launch_block_device_mappings": [
+        {
+          "device_name": "/dev/sda1",
+          "volume_type": "gp2",
+          "volume_size": "16",
+          "delete_on_termination": true
+        }
+      ],
+      "tags": {
+          "Name" : "Centos-7-DevOps-Practice",
+          "Created_By" : "Packer",
+          "Base_AMI_Name": "{{ .SourceAMIName }}"
+      }
+    }],
+
+    "provisioners": [
+        {
+          "type":  "shell",
+          "inline": ["curl -s https://gitlab.com/cit-devops/intros/raw/master/ami-setup.sh | sudo bash"]
+        }]
+}
+
