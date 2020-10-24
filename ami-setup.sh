@@ -50,12 +50,12 @@ sed -i -e '/TCPKeepAlive/ c TCPKeepAlive yes' -e '/ClientAliveInterval/ c Client
 Stat $? "Fixing SSH timeouts"
 
 ## Enable color prompt
-curl -s https://gitlab.com/cit-devops/intros/raw/master/scipts/ps1.sh -o /etc/profile.d/ps1.sh
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/ps1.sh -o /etc/profile.d/ps1.sh
 chmod +x /etc/profile.d/ps1.sh
 Stat $? "Enable Color Prompt"
 
 ## Enable idle shutdown
-curl -s https://gitlab.com/cit-devops/intros/raw/master/scipts/idle.sh -o /boot/idle.sh 
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/idle.sh -o /boot/idle.sh 
 chmod +x /boot/idle.sh
 STAT1=$?
 
@@ -116,16 +116,16 @@ sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tm
 curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto 
 chmod +x /bin/labauto 
 
-curl -s https://gitlab.com/cit-devops/intros/-/raw/master/scipts/disable-auto-shutdown >/bin/disable-auto-shutdown
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/disable-auto-shutdown >/bin/disable-auto-shutdown
 chmod +x /bin/disable-auto-shutdown
 
-curl -s https://gitlab.com/cit-devops/intros/-/raw/master/scipts/enable-auto-shutdown >/bin/enable-auto-shutdown
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/enable-auto-shutdown >/bin/enable-auto-shutdown
 chmod +x /bin/enable-auto-shutdown
 
-curl -s https://gitlab.com/cit-devops/intros/-/raw/master/scipts/set-hostname >/bin/set-hostname
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/set-hostname >/bin/set-hostname
 chmod +x /bin/set-hostname
 
-curl -s https://gitlab.com/cit-devops/intros/-/raw/master/scipts/motd >/etc/motd 
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/motd >/etc/motd 
 
 #hint "System is going to shutdown now.. Make a note of the above passwords and save them to use with all your servers .."
 #echo
