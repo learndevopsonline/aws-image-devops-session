@@ -36,7 +36,7 @@ Stat 0 "Disabling Firewall"
 
 ## Install Base Packages
 yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
-PACK_LIST="wget zip unzip gzip vim net-tools git $EPEL bind-utils python2-pip jq"
+PACK_LIST="wget zip unzip gzip vim net-tools git $EPEL bind-utils python2-pip jq nc telnet"
 info "Installing Base Packages"
 for package in $PACK_LIST ; do 
     [ "$package" = "$EPEL" ] && rpm -qa | grep epel &>/dev/null && Statt 0 "Installed EPEL" && continue
