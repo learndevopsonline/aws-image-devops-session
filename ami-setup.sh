@@ -100,7 +100,7 @@ systemctl enable rc-local
 cat /dev/zero | ssh-keygen -q -N ""
 cat /root/.ssh/id_rsa.pub >>/root/.ssh/authorized_keys
 echo 'Host *
-    User centos
+    User root
     StrictHostKeyChecking no' >/root/.ssh/config 
 chmod 600 /root/.ssh/config
 
