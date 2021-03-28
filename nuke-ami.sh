@@ -8,7 +8,7 @@ ALL_REGIONS="us-east-1 us-east-2 us-west-1 us-west-2 ap-east-1 ap-south-1 ap-nor
 
 echo "\n\033[1;33mAWS REGIONS : $ALL_REGIONS\033[0m\n"
 #read -p 'Enter which region [A-All]:' region 
-region=us-east-1
+region=A
 
 case $region in 
   A|a) 
