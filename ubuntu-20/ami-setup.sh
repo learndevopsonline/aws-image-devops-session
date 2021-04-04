@@ -9,7 +9,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 ## Common Functions 
-curl -s https://raw.githubusercontent.com/linuxautomations/scripts/master/common-functions.sh -o /tmp/common.sh &>/dev/null 
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/ubuntu-20/scipts/common.sh -o /tmp/common.sh &>/dev/null 
 source /tmp/common.sh
 
 ## Check ROOT USER 
@@ -18,14 +18,13 @@ if [ $(id -u) -ne 0 ]; then
     exit 1
 fi
 
+chattr -i /root/.ssh/authorized_keys /etc/ssh/sshd_config
+
 
 PACK_LIST="zip unzip make net-tools jq"
 info "Installing Base Packages"
 apt install $PACK_LIST -y &>/dev/null  
-# for package in $PACK_LIST ; do 
-#     apt install $package -y &>/dev/null  
-#     Statt $? "Installed $package"
-# done
+
 
 ## Fixing SSH timeouts
 sed -i -e '/TCPKeepAlive/ c TCPKeepAlive yes' -e '/ClientAliveInterval/ c ClientAliveInterval 10' /etc/ssh/sshd_config
@@ -53,9 +52,6 @@ else
     STAT=1
 fi 
 Stat $? "Enable idle shutdown"
-
-## MISC
-#echo -e "LANG=en_US.utf-8\nLC_ALL=en_US.utf-8" >/etc/environment
 
 ## Enable Password Logins
 sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config
@@ -88,7 +84,7 @@ chmod 600 /root/.ssh/config
 # Install AWS CLI 
 cd /tmp 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
-unzip awscliv2.zip
+unzip awscliv2.zip | tail -5
 /tmp/aws/install
 
 
