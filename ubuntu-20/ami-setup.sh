@@ -21,10 +21,11 @@ fi
 
 PACK_LIST="zip unzip make net-tools jq"
 info "Installing Base Packages"
-for package in $PACK_LIST ; do 
-    apt install $package -y &>/dev/null  
-    Statt $? "Installed $package"
-done
+apt install $PACK_LIST -y &>/dev/null  
+# for package in $PACK_LIST ; do 
+#     apt install $package -y &>/dev/null  
+#     Statt $? "Installed $package"
+# done
 
 ## Fixing SSH timeouts
 sed -i -e '/TCPKeepAlive/ c TCPKeepAlive yes' -e '/ClientAliveInterval/ c ClientAliveInterval 10' /etc/ssh/sshd_config
