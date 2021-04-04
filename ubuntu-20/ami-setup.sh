@@ -62,9 +62,9 @@ Stat $? "Enable Password Login"
 PASS="DevOps321"
 PASS="DevOps321"
 echo "echo "
-echo DevOps321 | passwd  ubuntu
-echo DevOps321 | passwd  root
-echo -e "echo DevOps321 | passwd  ubuntu\necho DevOps321 | passwd  root"   >>/etc/rc.local 
+echo root:DevOps321 | chpasswd
+echo ubuntu:DevOps321 | chpasswd
+echo -e "echo root:DevOps321 | chpasswd\necho ubuntu:DevOps321 | chpasswd"   >>/etc/rc.local 
 echo "sed -i -e 's/^ubuntu:!!/ubuntu:/' /etc/shadow" >>/etc/rc.local
 info "   Following are the Usernames and Passwords"
 Infot "ubuntu / $PASS"
