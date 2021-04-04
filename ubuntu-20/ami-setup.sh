@@ -33,8 +33,10 @@ sed -i -e '/TCPKeepAlive/ c TCPKeepAlive yes' -e '/ClientAliveInterval/ c Client
 Stat $? "Fixing SSH timeouts"
 
 ## Enable color prompt
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/ps1.sh -o /tmp/ps1.sh
-echo 
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/ubuntu-20/scipts/ps1.sh -o /tmp/ps1.sh
+cat /tmp/ps1.sh >>/home/ubuntu/.bashrc
+cat /tmp/ps1.sh >>/root/.bashrc 
+cat /tmp/ps1.sh >>/etc/skel/.bashrc
 
 ## Enable idle shutdown
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/idle.sh -o /boot/idle.sh 
@@ -43,7 +45,7 @@ STAT1=$?
 
 sed -i -e '/idle/ d' /var/spool/cron/root &>/dev/null
 echo "*/10 * * * * sh -x /boot/idle.sh &>/tmp/idle.out" >/var/spool/cron/root
-echo "@reboot passwd -u centos" >>/var/spool/cron/root
+echo "@reboot passwd -u ubuntu" >>/var/spool/cron/root
 chmod 600 /var/spool/cron/root
 STAT2=$?
 if [ $STAT1 -eq 0 -a $STAT2 -eq 0 ]; then 
@@ -54,7 +56,7 @@ fi
 Stat $? "Enable idle shutdown"
 
 ## MISC
-echo -e "LANG=en_US.utf-8\nLC_ALL=en_US.utf-8" >/etc/environment
+#echo -e "LANG=en_US.utf-8\nLC_ALL=en_US.utf-8" >/etc/environment
 
 ## Enable Password Logins
 sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config
@@ -63,24 +65,26 @@ Stat $? "Enable Password Login"
 
 ## Setup user passwords
 ROOT_PASS="DevOps321"
-CENTOS_PASS="DevOps321"
+UBUNTU_PASS="DevOps321"
 #usermod -a -G google-sudoers centos &>/dev/null
-echo "echo $ROOT_PASS | passwd --stdin root"   >>/etc/rc.d/rc.local 
-echo "echo $CENTOS_PASS | passwd --stdin centos"   >>/etc/rc.d/rc.local 
-echo "sed -i -e 's/^centos:!!/centos:/' /etc/shadow" >>/etc/rc.d/rc.local
-Stat $? "Setup Password for Users"
+# echo "echo $ROOT_PASS | passwd --stdin root"   >>/etc/rc.d/rc.local 
+# echo "echo $CENTOS_PASS | passwd --stdin centos"   >>/etc/rc.d/rc.local 
+# echo "sed -i -e 's/^centos:!!/centos:/' /etc/shadow" >>/etc/rc.d/rc.local
+# Stat $? "Setup Password for Users"
 info "   Following are the Usernames and Passwords"
-Infot "centos / $CENTOS_PASS"
+Infot "ubuntu / $UBUNTU_PASS"
 Infot "  root / $ROOT_PASS"
 echo
 echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIfSCB5MtXe54V3lWGBGSxMWPue5CjmSA4ky7E8GUoeZdXxI+df7msJL93PzmtwU3v+O+NLNJJRfmaGpEkgidVXoi6mnYUVCHb1y4zd6QIFEyglGDlvZ4svhHt7T15B13bJC3mTaR2A/xqlvE0/a4XKN1ATYyn6K6CTFJT8I4TIDQmO3PbcNsNFXoO1ef657aqNf0AXC1QWum3HulIt6iJ4s0pQI4hDTmR5EskJxr2K62F4JDOYmVu8bGhFT6ohYbXBCGQtmdp716RnF0Cp1htmxM001wvCSjWLPZuuBjtHXX+op+MJGr0aIqqxdVZ2gw0JeIDfVo7pkSIdTu+p2Yn devops' >/root/.ssh/authorized_keys
-sed -i -e 's/showfailed//' /etc/pam.d/postlogin
+#sed -i -e 's/showfailed//' /etc/pam.d/postlogin
 chmod +x /etc/rc.d/rc.local 
 systemctl enable rc-local
 
 ## Make local keys 
 cat /dev/zero | ssh-keygen -q -N ""
 cat /root/.ssh/id_rsa.pub >>/root/.ssh/authorized_keys
+chattr +i /root/.ssh/authorized_keys
+
 echo 'Host *
     User root
     StrictHostKeyChecking no' >/root/.ssh/config 
@@ -92,22 +96,20 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 unzip awscliv2.zip
 /tmp/aws/install
 
-rm -rf /var/lib/yum/*  /tmp/*
-sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tmp.conf
 
-curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto 
-chmod +x /bin/labauto 
+# curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto 
+# chmod +x /bin/labauto 
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/disable-auto-shutdown >/bin/disable-auto-shutdown
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/ubuntu-20/scipts/disable-auto-shutdown >/bin/disable-auto-shutdown
 chmod +x /bin/disable-auto-shutdown
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/enable-auto-shutdown >/bin/enable-auto-shutdown
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/ubuntu-20/scipts/enable-auto-shutdown >/bin/enable-auto-shutdown
 chmod +x /bin/enable-auto-shutdown
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/set-hostname >/bin/set-hostname
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/ubuntu-20/scipts/set-hostname >/bin/set-hostname
 chmod +x /bin/set-hostname
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/motd >/etc/motd 
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/ubuntu-20/scipts/motd >/etc/motd 
 
 #hint "System is going to shutdown now.. Make a note of the above passwords and save them to use with all your servers .."
 #echo
