@@ -20,10 +20,10 @@ fi
 
 chattr -i /root/.ssh/authorized_keys /etc/ssh/sshd_config
 
-
+apt-get update 
 PACK_LIST="zip unzip make net-tools jq"
 info "Installing Base Packages"
-apt install $PACK_LIST -y &>/dev/null  
+apt install $PACK_LIST -y
 
 
 ## Fixing SSH timeouts
@@ -61,14 +61,14 @@ Stat $? "Enable Password Login"
 ## Setup user passwords
 PASS="DevOps321"
 PASS="DevOps321"
-echo -e "usermod -p DevOps321 root\nusermod -p DevOps321 ubuntu"   >>/etc/rc.d/rc.local 
-echo "sed -i -e 's/^ubuntu:!!/ubuntu:/' /etc/shadow" >>/etc/rc.d/rc.local
+echo -e "usermod -p DevOps321 root\nusermod -p DevOps321 ubuntu"   >>/etc/rc.local 
+echo "sed -i -e 's/^ubuntu:!!/ubuntu:/' /etc/shadow" >>/etc/rc.local
 info "   Following are the Usernames and Passwords"
 Infot "ubuntu / $PASS"
 Infot "  root / $PASS"
 echo
 echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIfSCB5MtXe54V3lWGBGSxMWPue5CjmSA4ky7E8GUoeZdXxI+df7msJL93PzmtwU3v+O+NLNJJRfmaGpEkgidVXoi6mnYUVCHb1y4zd6QIFEyglGDlvZ4svhHt7T15B13bJC3mTaR2A/xqlvE0/a4XKN1ATYyn6K6CTFJT8I4TIDQmO3PbcNsNFXoO1ef657aqNf0AXC1QWum3HulIt6iJ4s0pQI4hDTmR5EskJxr2K62F4JDOYmVu8bGhFT6ohYbXBCGQtmdp716RnF0Cp1htmxM001wvCSjWLPZuuBjtHXX+op+MJGr0aIqqxdVZ2gw0JeIDfVo7pkSIdTu+p2Yn devops' >/root/.ssh/authorized_keys
-chmod +x /etc/rc.d/rc.local 
+chmod +x /etc/rc.local 
 systemctl enable rc-local
 
 ## Make local keys 
