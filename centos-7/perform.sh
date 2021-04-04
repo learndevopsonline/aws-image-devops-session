@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REGIONS=(us-east-1)
+REGIONS=(us-east-1 us-east-2 us-west-2)
 
 for REGION in ${REGIONS[*]} ; do 
   aws="aws --region $REGION --profile cit"

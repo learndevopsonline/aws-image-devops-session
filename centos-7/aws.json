@@ -8,7 +8,7 @@
       "ssh_username": "centos",
       "ami_groups": "all",
       "ami_name": "Centos-7-DevOps-Practice",
-      "ami_regions": ["us-east-1"],
+      "ami_regions": ["us-east-1", "us-east-2", "us-west-2"],
       "force_deregister": true,
       "force_delete_snapshot": true,
       "launch_block_device_mappings": [
