@@ -41,10 +41,9 @@ curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-sess
 chmod +x /boot/idle.sh
 STAT1=$?
 
-sed -i -e '/idle/ d' /var/spool/cron/root &>/dev/null
-echo "*/10 * * * * sh -x /boot/idle.sh &>/tmp/idle.out" >/var/spool/cron/root
-echo "@reboot passwd -u ubuntu" >>/var/spool/cron/root
-chmod 600 /var/spool/cron/root
+echo "*/10 * * * * sh -x /boot/idle.sh &>/tmp/idle.out" >/var/spool/cron/crontabs/root
+echo "@reboot passwd -u ubuntu" >>/var/spool/cron/crontabs/root
+chmod 600 /var/spool/cron/crontabs/root
 STAT2=$?
 if [ $STAT1 -eq 0 -a $STAT2 -eq 0 ]; then 
     STAT=0
