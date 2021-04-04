@@ -61,7 +61,10 @@ Stat $? "Enable Password Login"
 ## Setup user passwords
 PASS="DevOps321"
 PASS="DevOps321"
-echo -e "usermod -p DevOps321 root\nusermod -p DevOps321 ubuntu"   >>/etc/rc.local 
+echo "echo "
+echo DevOps321 | passwd  ubuntu
+echo DevOps321 | passwd  root
+echo -e "echo DevOps321 | passwd  ubuntu\necho DevOps321 | passwd  root"   >>/etc/rc.local 
 echo "sed -i -e 's/^ubuntu:!!/ubuntu:/' /etc/shadow" >>/etc/rc.local
 info "   Following are the Usernames and Passwords"
 Infot "ubuntu / $PASS"
