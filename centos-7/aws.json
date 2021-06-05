@@ -29,7 +29,7 @@
     "provisioners": [
         {
           "type":  "shell",
-          "inline": ["curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/ami-setup.sh | sudo bash"]
+          "inline": ["curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/ami-setup.sh | sudo bash"]
         }]
 }
 
