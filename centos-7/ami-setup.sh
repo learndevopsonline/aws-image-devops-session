@@ -36,7 +36,7 @@ Stat 0 "Disabling Firewall"
 
 ## Install Base Packages
 yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
-PACK_LIST="wget zip unzip gzip vim make net-tools git $EPEL bind-utils python2-pip jq nc telnet"
+PACK_LIST="wget zip unzip gzip vim make net-tools git $EPEL bind-utils python2-pip jq nc telnet bc sshpass"
 info "Installing Base Packages"
 for package in $PACK_LIST ; do 
     [ "$package" = "$EPEL" ] && rpm -qa | grep epel &>/dev/null && Statt 0 "Installed EPEL" && continue
@@ -46,16 +46,16 @@ done
 yum clean all &>/dev/null 
 
 ## Fixing SSH timeouts
-sed -i -e '/TCPKeepAlive/ c TCPKeepAlive yes' -e '/ClientAliveInterval/ c ClientAliveInterval 10' /etc/ssh/sshd_config
+sed -i -e '/TCPKeepAlive/ c TCPKeepAlive no' -e '/ClientAliveInterval/ c ClientAliveInterval 10' -e '/ClientAliveCountMax/ c ClientAliveCountMax 240'  /etc/ssh/sshd_config
 Stat $? "Fixing SSH timeouts"
 
 ## Enable color prompt
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/ps1.sh -o /etc/profile.d/ps1.sh
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/ps1.sh -o /etc/profile.d/ps1.sh
 chmod +x /etc/profile.d/ps1.sh
 Stat $? "Enable Color Prompt"
 
 ## Enable idle shutdown
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/idle.sh -o /boot/idle.sh 
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/idle.sh -o /boot/idle.sh
 chmod +x /boot/idle.sh
 STAT1=$?
 
@@ -92,6 +92,7 @@ Infot "centos / $CENTOS_PASS"
 Infot "  root / $ROOT_PASS"
 echo
 echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIfSCB5MtXe54V3lWGBGSxMWPue5CjmSA4ky7E8GUoeZdXxI+df7msJL93PzmtwU3v+O+NLNJJRfmaGpEkgidVXoi6mnYUVCHb1y4zd6QIFEyglGDlvZ4svhHt7T15B13bJC3mTaR2A/xqlvE0/a4XKN1ATYyn6K6CTFJT8I4TIDQmO3PbcNsNFXoO1ef657aqNf0AXC1QWum3HulIt6iJ4s0pQI4hDTmR5EskJxr2K62F4JDOYmVu8bGhFT6ohYbXBCGQtmdp716RnF0Cp1htmxM001wvCSjWLPZuuBjtHXX+op+MJGr0aIqqxdVZ2gw0JeIDfVo7pkSIdTu+p2Yn devops' >/root/.ssh/authorized_keys
+echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIfSCB5MtXe54V3lWGBGSxMWPue5CjmSA4ky7E8GUoeZdXxI+df7msJL93PzmtwU3v+O+NLNJJRfmaGpEkgidVXoi6mnYUVCHb1y4zd6QIFEyglGDlvZ4svhHt7T15B13bJC3mTaR2A/xqlvE0/a4XKN1ATYyn6K6CTFJT8I4TIDQmO3PbcNsNFXoO1ef657aqNf0AXC1QWum3HulIt6iJ4s0pQI4hDTmR5EskJxr2K62F4JDOYmVu8bGhFT6ohYbXBCGQtmdp716RnF0Cp1htmxM001wvCSjWLPZuuBjtHXX+op+MJGr0aIqqxdVZ2gw0JeIDfVo7pkSIdTu+p2Yn devops' >/home/centos/.ssh/authorized_keys
 sed -i -e 's/showfailed//' /etc/pam.d/postlogin
 chmod +x /etc/rc.d/rc.local 
 systemctl enable rc-local
@@ -99,6 +100,7 @@ systemctl enable rc-local
 ## Make local keys 
 cat /dev/zero | ssh-keygen -q -N ""
 cat /root/.ssh/id_rsa.pub >>/root/.ssh/authorized_keys
+chattr +i /root/.ssh/authorized_keys
 echo 'Host *
     User root
     StrictHostKeyChecking no' >/root/.ssh/config 
@@ -116,16 +118,16 @@ sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tm
 curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto 
 chmod +x /bin/labauto 
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/disable-auto-shutdown >/bin/disable-auto-shutdown
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/disable-auto-shutdown >/bin/disable-auto-shutdown
 chmod +x /bin/disable-auto-shutdown
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/enable-auto-shutdown >/bin/enable-auto-shutdown
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/enable-auto-shutdown >/bin/enable-auto-shutdown
 chmod +x /bin/enable-auto-shutdown
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/set-hostname >/bin/set-hostname
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/set-hostname >/bin/set-hostname
 chmod +x /bin/set-hostname
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/scipts/motd >/etc/motd 
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/motd >/etc/motd
 
 #hint "System is going to shutdown now.. Make a note of the above passwords and save them to use with all your servers .."
 #echo
