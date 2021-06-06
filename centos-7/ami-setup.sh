@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Following code can help in setting up AMI in AWS for practice of DevOps Tools 
-
+export PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/.local/bin:/root/bin"
 ## Checking Internet 
 ping -c 2 google.com &>/dev/null 
 if [ $? -ne 0 ]; then 
