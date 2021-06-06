@@ -109,8 +109,8 @@ chmod 600 /root/.ssh/config
 # Install AWS CLI 
 cd /tmp 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
-unzip awscliv2.zip
-/tmp/aws/install &>/dev/null
+unzip awscliv2.zip &>/dev/null
+/tmp/aws/install
 aws --version || true
 
 set -x
