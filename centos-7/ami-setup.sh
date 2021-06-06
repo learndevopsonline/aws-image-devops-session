@@ -110,7 +110,10 @@ chmod 600 /root/.ssh/config
 cd /tmp 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
 unzip awscliv2.zip
-/tmp/aws/install
+/tmp/aws/install &>/dev/null
+aws --version || true
+
+set -x
 
 rm -rf /var/lib/yum/*  /tmp/*
 sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tmp.conf
