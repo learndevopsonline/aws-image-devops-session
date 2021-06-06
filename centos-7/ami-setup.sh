@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -ex
 ## Following code can help in setting up AMI in AWS for practice of DevOps Tools 
 
 ## Checking Internet 
@@ -27,7 +26,7 @@ Stat $? "Disabling SELINUX"
 
 
 ## Disable firewall 
-systemctl disable firewalld &>/dev/nulll 
+systemctl disable firewalld &>/dev/null
 Stat 0 "Disabling Firewall"
 
 ## Updating System Updates
