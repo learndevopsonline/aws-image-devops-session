@@ -125,7 +125,8 @@ chmod +x /bin/disable-auto-shutdown
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/enable-auto-shutdown >/bin/enable-auto-shutdown
 chmod +x /bin/enable-auto-shutdown
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/set-hostname >/bin/set-hostname
+#curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/set-hostname >/bin/set-hostname
+cp scipts/set-hostname /bin
 chmod +x /bin/set-hostname
 
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/motd >/etc/motd
