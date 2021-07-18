@@ -98,8 +98,13 @@ chmod +x /etc/rc.d/rc.local
 systemctl enable rc-local
 
 ## Make local keys 
-cat /dev/zero | ssh-keygen -q -N ""
-cat /root/.ssh/id_rsa.pub >>/root/.ssh/authorized_keys
+#cat /dev/zero | ssh-keygen -q -N ""
+#cat /root/.ssh/id_rsa.pub >>/root/.ssh/authorized_key
+## Moved from generting ssh keys to using the ones from repo.
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/id_rsa >/root/.ssh/id_rsa
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scipts/id_rsa.pub >/root/.ssh/id_rsa.pub
+chmod 600 /root/.ssh/id_rsa
+chmod 655 /root/.ssh/id_rsa.pub
 chattr +i /root/.ssh/authorized_keys
 echo 'Host *
     User root
