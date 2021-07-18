@@ -26,3 +26,12 @@ resource "null_resource" "ami-create-apply" {
     ]
   }
 }
+
+resource "aws_ami_from_instance" "ami" {
+  depends_on                      = [null_resource.ami-create-apply]
+  name                            = "Centos-7-DevOps-Practice"
+  source_instance_id              = aws_instance.ami-instance.id
+  tags                            = {
+    Name                          = "Centos-7-DevOps-Practice"
+  }
+}
