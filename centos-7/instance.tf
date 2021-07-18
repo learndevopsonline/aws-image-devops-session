@@ -35,3 +35,12 @@ resource "aws_ami_from_instance" "ami" {
     Name                          = "Centos-7-DevOps-Practice"
   }
 }
+
+resource "null_resource" "public-ami" {
+  provisioner "local-exec" {
+    command =<<EOF
+aws ec2 modify-image-attribute --image-id ${aws_ami_from_instance.ami.id} --launch-permission '{\"Add\":[{\"Group\":\"all\"}]}' --region us-east-1
+EOF
+  }
+}
+
