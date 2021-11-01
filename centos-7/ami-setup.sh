@@ -120,6 +120,7 @@ echo 'Host *
     UserKnownHostsFile /dev/null
     StrictHostKeyChecking no' >/home/centos/.ssh/config
 chmod 600 /root/.ssh/config /home/centos/.ssh/config
+chown centos:centos /home/centos/.ssh/config
 
 # Install AWS CLI 
 cd /tmp 
