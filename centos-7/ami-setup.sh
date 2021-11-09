@@ -78,6 +78,7 @@ Stat $? "Enable idle shutdown"
 
 ## MISC
 echo -e "LANG=en_US.utf-8\nLC_ALL=en_US.utf-8" >/etc/environment
+echo -e "ANSIBLE_FORCE_COLOR=1" >>/etc/environment
 
 ## Enable Password Logins
 sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config
@@ -146,6 +147,10 @@ curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-sess
 chmod +x /bin/set-hostname
 
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/motd >/etc/motd
+
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/.gitconfig >/root/.gitconfig
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/.gitconfig >/home/centos/.gitconfig
+chown centos:centos /home/centos/.gitconfig; chmod 644 /home/centos/.gitconfig
 
 #hint "System is going to shutdown now.. Make a note of the above passwords and save them to use with all your servers .."
 #echo
