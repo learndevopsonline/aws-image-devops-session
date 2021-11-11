@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $1 == "-skip-apply" ]; then
-  HOST_NAME=$1
+  HOST_NAME=$2
 else
   HOST_NAME=$1
 fi
