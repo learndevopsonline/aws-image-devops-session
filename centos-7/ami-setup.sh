@@ -36,7 +36,7 @@ Stat 0 "Disabling Firewall"
 
 ## Install Base Packages
 yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
-PACK_LIST="wget zip unzip gzip vim make net-tools git $EPEL bind-utils python2-pip jq nc telnet bc sshpass"
+PACK_LIST="wget zip unzip gzip vim make net-tools git $EPEL bind-utils python2-pip jq nc telnet bc sshpass python3"
 info "Installing Base Packages"
 for package in $PACK_LIST ; do 
     [ "$package" = "$EPEL" ] && rpm -qa | grep epel &>/dev/null && Statt 0 "Installed EPEL" && continue
@@ -63,6 +63,10 @@ STAT1=$?
 
 ## Setup Sudoers
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/sudoers >/etc/sudoers
+
+## Uptime
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/tuptime >/bin/tuptime
+chmod +x /bin/tuptime
 
 sed -i -e '/idle/ d' /var/spool/cron/root &>/dev/null
 echo "*/10 * * * * sh -x /boot/idle.sh &>/tmp/idle.out" >/var/spool/cron/root
