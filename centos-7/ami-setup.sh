@@ -35,7 +35,7 @@ Stat 0 "Disabling Firewall"
 #Stat $? "Updating System Updates"
 
 ## Install Base Packages
-yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm
+yum install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm -y
 PACK_LIST="wget zip unzip gzip vim make net-tools git $EPEL bind-utils python2-pip jq nc telnet bc sshpass python3"
 info "Installing Base Packages"
 for package in $PACK_LIST ; do 
