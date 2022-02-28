@@ -11,5 +11,5 @@ fi
 PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4 2>/dev/null)
 INSTANCE_TYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type 2>/dev/null)
 export PS1="
-\e[1;32m${PUBLIC_IP} | ${PRIVATE_IP} | ${INSTANCE_TYPE} | ${GIT_URL}
+\e[1;32m${PUBLIC_IP} | ${PRIVATE_IP} | ${INSTANCE_TYPE} | \$(git config --get remote.origin.url || echo null)
 [ \[\e[1;31m\]\u\[\e[m\]@\[\e[1;33m\]\h\[\e[m\] \[\e[1;36m\]\w\[\e[m\] ]\\$ "
