@@ -127,6 +127,11 @@ echo 'Host *
 chmod 600 /root/.ssh/config /home/centos/.ssh/config
 chown centos:centos /home/centos/.ssh/config
 
+# Auto Pull the things while creating the server
+curl -s >/boot/bootstrap.sh
+chmod +x /boot/bootstrap.sh
+echo '@reboot /boot/bootstrap.sh' >>/var/spool/cron/root
+
 # Install AWS CLI 
 cd /tmp 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" 
