@@ -11,7 +11,10 @@ fi
 ## Common Functions 
 curl -s https://raw.githubusercontent.com/linuxautomations/scripts/master/common-functions.sh -o /tmp/common.sh &>/dev/null 
 source /tmp/common.sh
-EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+case $ELV in 
+    el7) EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm ;;
+    el8) EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm ;;
+esac
 
 
 ## Check ROOT USER 
