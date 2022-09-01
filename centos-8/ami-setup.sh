@@ -35,8 +35,8 @@ Stat 0 "Disabling Firewall"
 #Stat $? "Updating System Updates"
 
 ## Install Base Packages
-yum install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm -y
-PACK_LIST="zip unzip gzip vim make net-tools git $EPEL bind-utils python2-pip jq nc telnet bc sshpass python3"
+#yum install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm -y
+PACK_LIST="wget zip unzip gzip vim make net-tools git $EPEL bind-utils python2-pip jq nc telnet bc sshpass python3"
 info "Installing Base Packages"
 for package in $PACK_LIST ; do 
     [ "$package" = "$EPEL" ] && rpm -qa | grep epel &>/dev/null && Statt 0 "Installed EPEL" && continue
@@ -83,6 +83,7 @@ Stat $? "Enable idle shutdown"
 ## MISC
 echo -e "LANG=en_US.utf-8\nLC_ALL=en_US.utf-8" >/etc/environment
 echo -e "ANSIBLE_FORCE_COLOR=1" >>/etc/environment
+echo -e "ANSIBLE_FORCE_COLOR=1" >>/root/.bashrc
 
 ## Enable Password Logins
 sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config
