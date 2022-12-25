@@ -51,6 +51,7 @@ for package in $PACK_LIST ; do
     Statt $? "Installed $package"
 done
 
+dnf update libmodulemd -y &>/dev/null
 yum remove mariadb-libs -y &>/dev/null
 yum clean all &>/dev/null 
 
