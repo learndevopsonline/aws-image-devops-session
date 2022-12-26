@@ -5,7 +5,7 @@ if [ -z "$2" ]; then
   exit 1
 fi
 
-MYSQL_PASSWORD=$1
+MYSQL_PASSWORD=$2
 
 DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}')
 
