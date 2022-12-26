@@ -174,4 +174,8 @@ chown centos:centos /home/centos/.gitconfig; chmod 644 /home/centos/.gitconfig
 #echo
 #echo -e "★★★ Shutting Down the Server ★★★"
 #echo;echo
-#sudo init 0 &>/dev/null 
+#sudo init 0 &>/dev/null
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-8/scripts/mysql_secure_installation >/usr/sbin/mysql_secure_installation
+chmod +x /usr/sbin/mysql_secure_installation
+
+

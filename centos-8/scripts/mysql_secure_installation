@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ -z "$2" ]; then
+  echo "Argument new root password missing, --set-root-pass <root-password>"
+  exit 1
+fi
+
+MYSQL_PASSWORD=$1
+
+DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}')
+
+echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_PASSWORD}');
+FLUSH PRIVILEGES;" >/tmp/root-pass.sql
+
+echo "show databases;" |mysql -uroot -p${MYSQL_PASSWORD} &>/tmp/mysql.log
+if [ $? -ne 0 ]; then
+  mysql --connect-expired-password -uroot -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>/tmp/mysql.log
+fi
+
+echo "CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;" >/tmp/root-pass1.sql
+mysql --connect-expired-password -uroot -p"${MYSQL_PASSWORD}" </tmp/root-pass1.sql &>>/tmp/mysql.log
