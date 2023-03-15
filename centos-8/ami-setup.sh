@@ -139,7 +139,7 @@ chmod 600 /root/.ssh/config /home/centos/.ssh/config
 chown centos:centos /home/centos/.ssh/config
 
 # Auto Pull the things while creating the server
-curl -L -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/bootstrap.sh -o /boot/bootstrap.sh
+curl -L -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-8/scripts/bootstrap.sh -o /boot/bootstrap.sh
 chmod +x /boot/bootstrap.sh
 echo '@reboot /boot/bootstrap.sh' >>/var/spool/cron/root
 
