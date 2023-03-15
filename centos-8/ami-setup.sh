@@ -117,6 +117,8 @@ sed -i -e 's/showfailed//' /etc/pam.d/postlogin
 chmod +x /etc/rc.d/rc.local 
 systemctl enable rc-local
 
+sed -i -e '4 i colorscheme desert' /etc/vimrc
+
 ## Make local keys 
 #cat /dev/zero | ssh-keygen -q -N ""
 #cat /root/.ssh/id_rsa.pub >>/root/.ssh/authorized_key
@@ -152,7 +154,10 @@ rm -rf /var/lib/yum/*  /tmp/*
 sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tmp.conf
 
 curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto 
-chmod +x /bin/labauto 
+chmod +x /bin/labauto
+
+curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/awsauto >/bin/labauto
+chmod +x /bin/awsauto
 
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/disable-auto-shutdown >/bin/disable-auto-shutdown
 chmod +x /bin/disable-auto-shutdown

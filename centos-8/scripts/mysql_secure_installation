@@ -12,9 +12,11 @@ DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print
 echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_PASSWORD}');
 FLUSH PRIVILEGES;" >/tmp/root-pass.sql
 
-echo "show databases;" |mysql -uroot -p${MYSQL_PASSWORD} &>/tmp/mysql.log
+echo "show databases;" | mysql -uroot -p${MYSQL_PASSWORD} &>/tmp/mysql.log
 if [ $? -ne 0 ]; then
   mysql --connect-expired-password -uroot -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>/tmp/mysql.log
+else
+  exit 0
 fi
 
 echo "CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
