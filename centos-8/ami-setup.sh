@@ -156,7 +156,7 @@ sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tm
 curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto 
 chmod +x /bin/labauto
 
-curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/awsauto >/bin/labauto
+curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/awsauto >/bin/awsauto
 chmod +x /bin/awsauto
 
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/disable-auto-shutdown >/bin/disable-auto-shutdown
