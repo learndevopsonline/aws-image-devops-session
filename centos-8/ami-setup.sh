@@ -184,4 +184,7 @@ chown centos:centos /home/centos/.gitconfig; chmod 644 /home/centos/.gitconfig
 curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-8/scripts/mysql_secure_installation >/usr/sbin/mysql_secure_installation
 chmod +x /usr/sbin/mysql_secure_installation
 
+## Create directory for journalctl failure
+mkdir -p /var/log/journal
+
 
