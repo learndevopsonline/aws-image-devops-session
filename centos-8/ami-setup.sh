@@ -42,6 +42,9 @@ Stat 0 "Disabling Firewall"
 yum remove cockpit* -y 
 rm -f /etc/motd.d/cockpit
 
+## Perform OS Update
+yum update -y
+
 ## Install Base Packages
 #yum install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm -y
 PACK_LIST="wget zip unzip gzip vim make net-tools $EPEL bind-utils python2-pip jq nc telnet bc sshpass python3"
