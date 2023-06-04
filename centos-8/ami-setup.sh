@@ -93,6 +93,7 @@ Stat $? "Enable idle shutdown"
 echo -e "LANG=en_US.utf-8\nLC_ALL=en_US.utf-8" >/etc/environment
 echo -e "ANSIBLE_FORCE_COLOR=1" >>/etc/environment
 echo -e "ANSIBLE_FORCE_COLOR=1" >>/root/.bashrc
+echo 'export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin' >>/etc/environment
 
 ## Enable Password Logins
 sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config
@@ -187,4 +188,6 @@ chmod +x /usr/sbin/mysql_secure_installation
 ## Create directory for journalctl failure
 mkdir -p /var/log/journal
 
+## Hoping this will solve the out of memory issue.
+sysctl -w vm.overcommit_memory=1
 

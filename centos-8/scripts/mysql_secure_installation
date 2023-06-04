@@ -1,9 +1,17 @@
 #!/bin/bash
 
+
+if [ "$(id -u)" -ne 0 ]; then
+  echo "You should login as root user to run this."
+  exit 1
+fi
+
 if [ -z "$2" ]; then
   echo "Argument new root password missing, --set-root-pass <root-password>"
   exit 1
 fi
+
+sudo rm -f /tmp/root-pass.sql /tmp/mysql.log /tmp/root-pass1.sql
 
 MYSQL_PASSWORD=$2
 
