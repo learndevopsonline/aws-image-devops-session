@@ -39,12 +39,12 @@ sed -i -e '/TCPKeepAlive/ c TCPKeepAlive no' -e '/ClientAliveInterval/ c ClientA
 Stat $? "Fixing SSH timeouts"
 
 ## Enable color prompt
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/ps1.sh -o /etc/profile.d/ps1.sh
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/8-bare/scripts/ps1.sh -o /etc/profile.d/ps1.sh
 chmod +x /etc/profile.d/ps1.sh
 Stat $? "Enable Color Prompt"
 
 ## Uptime
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/tuptime >/bin/tuptime
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/8-bare/scripts/tuptime >/bin/tuptime
 chmod +x /bin/tuptime
 
 echo "@reboot passwd -u centos" >>/var/spool/cron/root
@@ -77,7 +77,7 @@ systemctl enable rc-local
 sed -i -e '4 i colorscheme desert' /etc/vimrc
 
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-7/scripts/motd >/etc/motd
+curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/8-bare/scripts/motd >/etc/motd
 
 ## Create directory for journalctl failure
 mkdir -p /var/log/journal
