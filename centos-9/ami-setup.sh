@@ -85,7 +85,7 @@ sed -i -e '4 i colorscheme desert' /etc/vimrc
 echo 'centos ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/centos
 
 
-curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-9/scripts/motd >/etc/motd
+cp /home/ec2-user/aws-image-devops-session/centos-9/scripts /etc/motd
 
 ## Create directory for journalctl failure
 mkdir -p /var/log/journal
