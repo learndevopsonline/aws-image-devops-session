@@ -31,7 +31,7 @@ resource "null_resource" "ami-create-apply" {
       "rm -rf aws-image-devops-session && git clone https://github.com/linuxautomations/aws-image-devops-session.git",
       "cd aws-image-devops-session/centos-9",
       "sudo bash ami-setup.sh",
-      "rm -rf /home/centos/aws-image-devops-session"
+      "rm -rf /home/ec2-user/aws-image-devops-session"
     ]
   }
 }
