@@ -2,8 +2,6 @@
 
 ## Set AWS Profile
 
-~/bin/aws-profile.sh set rdevops
-
 REGION=us-east-1
 
 aws="aws --region $REGION"
