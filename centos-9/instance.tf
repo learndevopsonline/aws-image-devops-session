@@ -2,6 +2,15 @@ provider "aws" {
   region = "us-east-1"
 }
 
+//
+terraform {
+  backend "s3" {
+    bucket = "d55-training"
+    key    = "centos-9/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
 resource "aws_instance" "ami-instance" {
   ami                         = "ami-0cc813c8d0dc9cdc9"
   instance_type               = "t3.small"
