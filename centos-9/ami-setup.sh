@@ -49,9 +49,12 @@ chmod +x /bin/tuptime
 
 rm -f /etc/ssh/sshd_config.d/50-cloud-init.conf
 useradd centos
+sed -i -e '/ec2-user/ d' /etc/passwd /etc/shadow /etc/group /etc/gshadow
+sed -i -e 's/ec2-user/centos/' /etc/sudoers.d/90-cloud-init-users
+rm -rf /home/ec2-user/
 mkdir -p /home/centos/.ssh
-chmod 700 /home/centos/.ssh
 chown centos:centos /home/centos/.ssh
+chmod 700 /home/centos/.ssh
 
 echo "@reboot passwd -u centos" >>/var/spool/cron/root
 chmod 600 /var/spool/cron/root
