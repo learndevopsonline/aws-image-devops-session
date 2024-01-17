@@ -16,6 +16,10 @@ resource "aws_instance" "ami-instance" {
   instance_type               = "t3.small"
   vpc_security_group_ids      = ["sg-03a6af6735757ed3e"]
   key_name                    = "devops"
+
+  tags = {
+    Name = "rhel-9-ami"
+  }
 }
 
 resource "null_resource" "ami-create-apply" {
