@@ -31,7 +31,7 @@ yum remove cockpit* -y
 rm -f /etc/motd.d/cockpit
 
 ## Perform OS Update
-yum update -y
+#yum update -y
 yum install vim -y
 yum clean all &>/dev/null 
 
