@@ -5,7 +5,7 @@
 REGION=us-east-1
 
 aws="aws --region $REGION"
-AMIID=$($aws ec2 describe-images --owners 973714476881 --filters "Name=tag:Name,Values=Centos-9-DevOps-Practice" --query 'Images[*].{ID:ImageId}' --output text)
+AMIID=$($aws ec2 describe-images --owners 973714476881 --filters "Name=tag:Name,Values=RHEL-9-DevOps-Practice" --query 'Images[*].{ID:ImageId}' --output text)
 if [ -n "$AMIID" ]; then
   echo "Found AMI in $REGION & AMIID is $AMIID"
   $aws ec2 deregister-image --image-id $AMIID | jq .
