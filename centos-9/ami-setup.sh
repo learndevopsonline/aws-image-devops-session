@@ -111,8 +111,8 @@ chmod +x /bin/labauto
 curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/awsauto >/bin/awsauto
 chmod +x /bin/awsauto
 
-cp /tmp/aws-image-devops-session /root/.gitconfig
-cp /tmp/aws-image-devops-session /home/ec2-user/.gitconfig
+cp /tmp/aws-image-devops-session/.gitconfig /root/.gitconfig
+cp /tmp/aws-image-devops-session/.gitconfig /home/ec2-user/.gitconfig
 chown ec2-user:ec2-user /home/ec2-user/.gitconfig; chmod 644 /home/ec2-user/.gitconfig
 
 ## Create directory for journalctl failure
