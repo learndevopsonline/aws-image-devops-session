@@ -11,8 +11,14 @@ terraform {
   }
 }
 
+data "aws_ami" "centos9" {
+  most_recent      = true
+  name_regex       = "CentOS Stream 9 x86_64*"
+  owners           = ["125523088429"]
+}
+
 resource "aws_instance" "ami-instance" {
-  ami                         = "ami-0cc813c8d0dc9cdc9"
+  ami                         = data.aws_ami.centos9.image_id
   instance_type               = "t3.small"
   vpc_security_group_ids      = ["sg-03a6af6735757ed3e"]
   key_name                    = "devops"
