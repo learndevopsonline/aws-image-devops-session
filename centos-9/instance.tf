@@ -35,7 +35,7 @@ resource "null_resource" "ami-create-apply" {
     inline = [
       "sudo yum install git -y",
       "cd /tmp && rm -rf aws-image-devops-session && git clone https://github.com/linuxautomations/aws-image-devops-session.git",
-      "cd aws-image-devops-session/centos-9",
+      "cd /tmp/aws-image-devops-session/centos-9",
       "sudo bash ami-setup.sh",
       "rm -rf /tmp/aws-image-devops-session"
     ]
