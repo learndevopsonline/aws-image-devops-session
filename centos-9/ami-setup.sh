@@ -27,14 +27,13 @@ Stat $? "Disabling SELINUX"
 systemctl disable firewalld &>/dev/null
 Stat 0 "Disabling Firewall"
 
-## Perform OS Update
-yum update -y
-
 PACK_LIST="wget zip vim make net-tools $EPEL bind-utils jq nc telnet bc sshpass"
 for package in $PACK_LIST ; do
     yum install $package -y &>/dev/null
 done
 
+## Perform OS Update
+yum update -y
 yum remove mariadb-libs -y &>/dev/null
 yum clean all &>/dev/null
 
