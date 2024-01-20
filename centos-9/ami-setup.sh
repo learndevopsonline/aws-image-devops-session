@@ -51,7 +51,7 @@ echo '@reboot /boot/bootstrap.sh' >>/var/spool/cron/root
 
 cp /tmp/aws-image-devops-session/centos-9/scripts/set-hostname /bin/set-hostname
 cp /tmp/aws-image-devops-session/centos-9/scripts/motd /etc/motd
-cp /tmp/aws-image-devops-session/centos-9/scripts/mysql_secure_installation
+cp /tmp/aws-image-devops-session/centos-9/scripts/mysql_secure_installation /usr/sbin/mysql_secure_installation
 
 cp /tmp/aws-image-devops-session/centos-9/scripts/id_rsa /root/.ssh/id_rsa
 cp /tmp/aws-image-devops-session/centos-9/scripts/id_rsa.pub /root/.ssh/id_rsa.pub
@@ -64,9 +64,9 @@ echo 'Host *
     StrictHostKeyChecking no' >/root/.ssh/config
 echo 'Host *
     UserKnownHostsFile /dev/null
-    StrictHostKeyChecking no' >/home/centos/.ssh/config
-chmod 600 /root/.ssh/config /home/centos/.ssh/config
-chown centos:centos /home/centos/.ssh/config
+    StrictHostKeyChecking no' >/home/ec2-user/.ssh/config
+chmod 600 /root/.ssh/config /home/ec2-user/.ssh/config
+chown ec2-user:ec2-user /home/ec2-user/.ssh/config
 
 
 chmod /etc/profile.d/ps1.sh /bin/tuptime /boot/bootstrap.sh /bin/set-hostname /usr/sbin/mysql_secure_installation
