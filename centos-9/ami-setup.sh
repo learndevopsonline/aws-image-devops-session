@@ -68,7 +68,7 @@ chmod 600 /root/.ssh/config /home/ec2-user/.ssh/config
 chown ec2-user:ec2-user /home/ec2-user/.ssh/config
 
 
-chmod /etc/profile.d/ps1.sh /bin/tuptime /boot/bootstrap.sh /bin/set-hostname /usr/sbin/mysql_secure_installation
+chmod +x /etc/profile.d/ps1.sh /bin/tuptime /boot/bootstrap.sh /bin/set-hostname /usr/sbin/mysql_secure_installation
 
 
 ## MISC
