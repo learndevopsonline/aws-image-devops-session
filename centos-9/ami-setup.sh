@@ -79,6 +79,7 @@ echo 'export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin' >>/etc/envi
 
 sed -i -e 's/showfailed//' /etc/pam.d/postlogin
 sed -i -e '4 i colorscheme desert' /etc/vimrc
+sed -i -e '$ a set nu' /etc/vimrc
 
 ## Enable Password Logins
 sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config
