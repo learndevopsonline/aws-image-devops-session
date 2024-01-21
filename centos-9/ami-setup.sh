@@ -82,7 +82,7 @@ sed -i -e '4 i colorscheme desert' /etc/vimrc
 
 ## Enable Password Logins
 sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config
-chattr +i /etc/ssh/sshd_config
+chattr +i /etc/ssh/sshd_config /etc/ssh/sshd_config.d/50-cloud-init.conf
 
 ## Setup user passwords
 ROOT_PASS="DevOps321"
