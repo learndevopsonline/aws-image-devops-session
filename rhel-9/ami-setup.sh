@@ -27,8 +27,8 @@ systemctl disable firewalld &>/dev/null
 Stat 0 "Disabling Firewall"
 
 ## Remove cockpit message 
-yum remove cockpit* -y 
-rm -f /etc/motd.d/cockpit
+yum remove insights-client -y
+rm -f /etc/motd.d/insights-client
 
 ## Perform OS Update
 #yum update -y
@@ -87,9 +87,9 @@ bash /tmp/install-snoopy.sh stable && rm -f /tmp/install-snoopy.sh
 
 
 # Commands to /bin
-cp /tmp/aws-image-devops-session/rhel-9/scripts/set-hostname /bin/set-hostname
+cp /tmp/aws-image-devops-session/rhel-9/scripts/set-hostname /bin/set-promt
 cp /tmp/aws-image-devops-session/rhel-9/scripts/mysql_secure_installation /bin/mysql_secure_installation
-chmod +x /bin/set-hostname /bin/mysql_secure_installation
+chmod +x /bin/set-promt /bin/mysql_secure_installation
 
 # Install AWS CLI
 cd /tmp
@@ -108,5 +108,8 @@ chmod +x /bin/labauto
 
 curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/awsauto >/bin/awsauto
 chmod +x /bin/awsauto
+
+# Empty All log files
+truncate -s 0 /var/log/audit/audit.log /var/log/dnf.log /var/log/dnf.librepo.log /var/log/dnf.rpm.log /var/log/hawkey.log /var/log/tallylog /var/log/wtmp /var/log/btmp /var/log/lastlog /var/log/choose_repo.log /var/log/messages /var/log/secure /var/log/maillog /var/log/spooler /var/log/journal/d04a33e12e5943deb56cfa5ef393e669/system.journal /var/log/journal/d04a33e12e5943deb56cfa5ef393e669/user-1000.journal /var/log/journal/d04a33e12e5943deb56cfa5ef393e669/user-1001.journal /var/log/firewalld /var/log/cloud-init.log /var/log/cloud-init-output.log /var/log/cron /var/log/amazon/ssm/audits/amazon-ssm-agent-audit-2024-02-22 /var/log/amazon/ssm/amazon-ssm-agent.log /var/log/amazon/ssm/errors.log
 
 rm -rf /tmp/*
