@@ -12,7 +12,7 @@ terraform {
 }
 
 resource "aws_instance" "ami-instance" {
-  ami                         = "ami-04dfa6a9150c12e4e"
+  ami                         = "ami-020e8e4261295bf9f"
   instance_type               = "t3.small"
   vpc_security_group_ids      = ["sg-03a6af6735757ed3e"]
   key_name                    = "devops"
