@@ -32,17 +32,18 @@ rm -f /etc/motd.d/cockpit
 
 ## Perform OS Update
 #yum update -y
-yum install vim -y
-yum clean all &>/dev/null 
+yum install vim https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
+
 
 ## Fixing SSH timeouts
 sed -i -e '/TCPKeepAlive/ c TCPKeepAlive no' -e '/ClientAliveInterval/ c ClientAliveInterval 10' -e '/ClientAliveCountMax/ c ClientAliveCountMax 240'  /etc/ssh/sshd_config
 
 
-## Enable color prompt
-#curl -s https://raw.githubusercontent.com/linuxautomations/aws-image-devops-session/master/centos-9/scripts/ps1.sh -o /etc/profile.d/ps1.sh
+## Profile Environment
 cp /tmp/aws-image-devops-session/rhel-9/scripts/ps1.sh /etc/profile.d/ps1.sh
-chmod +x /etc/profile.d/ps1.sh
+cp /tmp/aws-image-devops-session/rhel-9/scripts/aliases.sh /etc/profile.d/aliases.sh
+cp /tmp/aws-image-devops-session/rhel-9/scripts/boot-env.sh /etc/profile.d/boot-env.sh
+
 
 useradd ec2-user
 mkdir -p /home/ec2-user/.ssh
@@ -81,4 +82,31 @@ cp /tmp/aws-image-devops-session/rhel-9/scripts/motd /etc/motd
 
 ## Create directory for journalctl failure
 mkdir -p /var/log/journal
+curl -L -o /tmp/install-snoopy.sh https://github.com/a2o/snoopy/raw/install/install/install-snoopy.sh
+bash /tmp/install-snoopy.sh stable && rm -f /tmp/install-snoopy.sh
 
+
+# Commands to /bin
+cp /tmp/aws-image-devops-session/rhel-9/scripts/set-hostname /bin/set-hostname
+cp /tmp/aws-image-devops-session/rhel-9/scripts/mysql_secure_installation /bin/mysql_secure_installation
+chmod +x /bin/set-hostname /bin/mysql_secure_installation
+
+# Install AWS CLI
+cd /tmp
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip &>/dev/null
+/tmp/aws/install
+/usr/local/bin/aws --version || true
+
+yum clean all &>/dev/null
+rm -rf /var/lib/yum/*  /tmp/*
+sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tmp.conf
+
+# labauto Scripts
+curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto
+chmod +x /bin/labauto
+
+curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/awsauto >/bin/awsauto
+chmod +x /bin/awsauto
+
+rm -rf /tmp/*
