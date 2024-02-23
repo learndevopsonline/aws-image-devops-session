@@ -32,7 +32,7 @@ rm -f /etc/motd.d/insights-client
 
 ## Perform OS Update
 #yum update -y
-yum install vim https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
+yum install vim https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm net-tools bind-utils -y
 
 
 ## Fixing SSH timeouts
