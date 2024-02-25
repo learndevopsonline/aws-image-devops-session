@@ -11,22 +11,14 @@ if [ -z "$2" ]; then
   exit 1
 fi
 
-sudo rm -f /tmp/root-pass.sql /tmp/mysql.log /tmp/root-pass1.sql
-
 MYSQL_PASSWORD=$2
 
-DEFAULT_PASSWORD=$(grep 'A temporary password' /var/log/mysqld.log | awk '{print $NF}')
-
-echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${MYSQL_PASSWORD}');
-FLUSH PRIVILEGES;" >/tmp/root-pass.sql
-
-echo "show databases;" | mysql -uroot -p${MYSQL_PASSWORD} &>/tmp/mysql.log
-if [ $? -ne 0 ]; then
-  mysql --connect-expired-password -uroot -p"${DEFAULT_PASSWORD}" </tmp/root-pass.sql &>>/tmp/mysql.log
-else
-  exit 0
+if [ -f /etc/.mysql_password_already_set ]; then
+  echo "Password already set, You cannot reset the password with mysql_secure_installation"
+  exit 1
 fi
 
 echo "CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;" >/tmp/root-pass1.sql
-mysql --connect-expired-password -uroot -p"${MYSQL_PASSWORD}" </tmp/root-pass1.sql &>>/tmp/mysql.log
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;" >/tmp/.root-pass1.sql
+mysql </tmp/.root-pass1.sql &>>/tmp/mysql.log
+if [ $? -eq 0 ]; then echo $MYSQL_PASSWORD > /etc/.mysql_password_already_set; fi
