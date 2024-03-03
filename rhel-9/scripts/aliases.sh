@@ -2,5 +2,7 @@
 
 alias gp="git pull &>/dev/null"
 alias vi=vim
-alias mysql_secure_installation='/usr/bin/.mysql_secure_installation'
+alias S=sudo
+alias gp='git pull'
+alias gs='git stash'
 

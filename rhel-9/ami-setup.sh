@@ -88,8 +88,8 @@ bash /tmp/install-snoopy.sh stable && rm -f /tmp/install-snoopy.sh
 
 # Commands to /bin
 cp /tmp/aws-image-devops-session/rhel-9/scripts/set-hostname /bin/set-prompt
-cp /tmp/aws-image-devops-session/rhel-9/scripts/mysql_secure_installation /bin/.mysql_secure_installation
-chmod +x /bin/set-prompt /bin/.mysql_secure_installation
+cp /tmp/aws-image-devops-session/rhel-9/scripts/mysql_secure_installation /usr/sbin/mysql_secure_installation
+chmod +x /bin/set-prompt /usr/sbin/mysql_secure_installation
 
 # Install AWS CLI
 cd /tmp
