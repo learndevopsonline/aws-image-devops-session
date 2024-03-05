@@ -32,7 +32,7 @@ rm -f /etc/motd.d/insights-client
 
 ## Perform OS Update
 #yum update -y
-yum install vim https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm net-tools bind-utils -y
+yum install vim https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm net-tools bind-utils sshpass -y
 
 
 ## Fixing SSH timeouts
@@ -78,6 +78,7 @@ sed -i -e '4 i colorscheme desert' /etc/vimrc
 echo 'ec2-user ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/ec2-user
 chattr +i /etc/ssh/sshd_config /etc/ssh/sshd_config.d/50-cloud-init.conf /etc/sudoers.d/ec2-user
 
+cp /tmp/aws-image-devops-session/rhel-9/scripts/04-ssh-config.conf /etc/ssh/ssh_config.d/04-ssh-config.conf
 cp /tmp/aws-image-devops-session/rhel-9/scripts/motd /etc/motd
 
 ## Create directory for journalctl failure
