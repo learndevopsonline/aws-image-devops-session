@@ -3,7 +3,7 @@
 ## Following code can help in setting up AMI in AWS for practice of DevOps Tools 
 export PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/.local/bin:/root/bin"
 ## Common Functions 
-curl -s https://raw.githubusercontent.com/linuxautomations/scripts/master/common-functions.sh -o /tmp/common.sh &>/dev/null 
+curl -s https://raw.githubusercontent.com/learndevopsonline/scripts/master/common-functions.sh -o /tmp/common.sh &>/dev/null
 source /tmp/common.sh
 case $ELV in 
     el7) EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm ;;
@@ -104,10 +104,10 @@ rm -rf /var/lib/yum/*  /tmp/*
 sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tmp.conf
 
 # labauto Scripts
-curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/labauto >/bin/labauto
+curl -s https://raw.githubusercontent.com/learndevopsonline/labautomation/master/labauto >/bin/labauto
 chmod +x /bin/labauto
 
-curl -s https://raw.githubusercontent.com/linuxautomations/labautomation/master/awsauto >/bin/awsauto
+curl -s https://raw.githubusercontent.com/learndevopsonline/labautomation/master/awsauto >/bin/awsauto
 chmod +x /bin/awsauto
 
 # Empty All log files
