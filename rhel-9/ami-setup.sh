@@ -111,6 +111,6 @@ curl -s https://raw.githubusercontent.com/learndevopsonline/labautomation/master
 chmod +x /bin/awsauto
 
 # Empty All log files
-truncate -s 0 /var/log/audit/audit.log /var/log/dnf.log /var/log/dnf.librepo.log /var/log/dnf.rpm.log /var/log/hawkey.log /var/log/tallylog /var/log/wtmp /var/log/btmp /var/log/lastlog /var/log/choose_repo.log /var/log/messages /var/log/secure /var/log/maillog /var/log/spooler /var/log/journal/d04a33e12e5943deb56cfa5ef393e669/system.journal /var/log/journal/d04a33e12e5943deb56cfa5ef393e669/user-1000.journal /var/log/journal/d04a33e12e5943deb56cfa5ef393e669/user-1001.journal /var/log/firewalld /var/log/cloud-init.log /var/log/cloud-init-output.log /var/log/cron /var/log/amazon/ssm/audits/amazon-ssm-agent-audit-2024-02-22 /var/log/amazon/ssm/amazon-ssm-agent.log /var/log/amazon/ssm/errors.log
+truncate -s 0 `find /var/log -type f |xargs`
 
 rm -rf /tmp/*
