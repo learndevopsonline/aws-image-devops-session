@@ -18,6 +18,8 @@ resource "null_resource" "ami-create-apply" {
     }
 
     inline = [
+      "sudo sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*",
+      "sudo sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*",
       "sudo yum install git -y",
       "rm -rf aws-image-devops-session && git clone https://github.com/linuxautomations/aws-image-devops-session.git",
       "cd aws-image-devops-session/centos-8",
