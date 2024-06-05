@@ -42,6 +42,9 @@ Stat 0 "Disabling Firewall"
 yum remove cockpit* -y 
 rm -f /etc/motd.d/cockpit
 
+sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
 ## Perform OS Update
 yum update -y
 
