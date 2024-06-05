@@ -43,7 +43,8 @@ sed -i -e '/TCPKeepAlive/ c TCPKeepAlive no' -e '/ClientAliveInterval/ c ClientA
 cp /tmp/aws-image-devops-session/rhel-9/scripts/ps1.sh /etc/profile.d/ps1.sh
 cp /tmp/aws-image-devops-session/rhel-9/scripts/aliases.sh /etc/profile.d/aliases.sh
 cp /tmp/aws-image-devops-session/rhel-9/scripts/boot-env.sh /etc/profile.d/boot-env.sh
-
+cp /tmp/aws-image-devops-session/rhel-9/scripts/profile /etc/profile
+chmod +x /etc/profile /etc/profile.d/*
 
 useradd ec2-user
 mkdir -p /home/ec2-user/.ssh
