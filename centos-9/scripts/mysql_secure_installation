@@ -28,5 +28,7 @@ else
 fi
 
 echo "CREATE USER 'root'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
+CREATE USER 'root'@'localhost' IDENTIFIED BY '${MYSQL_PASSWORD}';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;" >/tmp/root-pass1.sql
 mysql --connect-expired-password -uroot -p"${MYSQL_PASSWORD}" </tmp/root-pass1.sql &>>/tmp/mysql.log || true
