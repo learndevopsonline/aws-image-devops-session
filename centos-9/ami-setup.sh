@@ -5,12 +5,8 @@ export PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/
 ## Common Functions 
 curl -s https://raw.githubusercontent.com/linuxautomations/scripts/master/common-functions.sh -o /tmp/common.sh &>/dev/null 
 source /tmp/common.sh
-case $ELV in 
-    el7) EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm ;;
-    el8) EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm ;;
-    el9) EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm ;;
-esac
 
+EPEL=https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 
 ## Check ROOT USER 
 if [ $(id -u) -ne 0 ]; then 
@@ -29,13 +25,17 @@ Stat 0 "Disabling Firewall"
 
 PACK_LIST="wget zip vim make net-tools $EPEL bind-utils jq nc telnet bc sshpass"
 for package in $PACK_LIST ; do
-    yum install $package -y &>/dev/null
+    dnf install $package -y &>/dev/null
 done
 
 ## Perform OS Update
-yum update -y
-yum remove mariadb-libs -y &>/dev/null
-yum clean all &>/dev/null
+dnf update -y
+
+dnf module disable nginx -y
+dnf module enable nginx:1.24 -y
+
+dnf remove mariadb-libs -y &>/dev/null
+dnf clean all &>/dev/null
 
 ## Fixing SSH timeouts
 sed -i -e '/TCPKeepAlive/ c TCPKeepAlive no' -e '/ClientAliveInterval/ c ClientAliveInterval 10' -e '/ClientAliveCountMax/ c ClientAliveCountMax 240'  /etc/ssh/sshd_config
