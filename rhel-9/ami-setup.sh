@@ -87,6 +87,17 @@ mkdir -p /var/log/journal
 curl -L -o /tmp/install-snoopy.sh https://github.com/a2o/snoopy/raw/install/install/install-snoopy.sh
 bash /tmp/install-snoopy.sh stable && rm -f /tmp/install-snoopy.sh
 
+## Remove Amazon SSM & CFN
+rpm -e amazon-ssm-agent
+unlink /etc/init.d/cfn-hup
+
+## Disable GPG Checks by default
+sed -i -e '/gpgcheck/ c gpgcheck=0' /etc/dnf/dnf.conf
+
+## Keep the logs clean.
+echo ':programname, isequal, "systemd-sysv-generator" /var/log/sysv.log
+:programname, isequal, "/usr/sbin/irqbalance" /var/log/irq.log
+& stop' >/etc/rsyslog.d/01-sysv.conf
 
 # Commands to /bin
 cp /tmp/aws-image-devops-session/rhel-9/scripts/set-hostname /bin/set-prompt
