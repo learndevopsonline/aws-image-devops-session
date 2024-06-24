@@ -19,12 +19,10 @@ fi
 
 ## Disabling SELINUX
 sed -i -e '/^SELINUX/ c SELINUX=disabled' /etc/selinux/config
-Stat $? "Disabling SELINUX"
 
 
 ## Disable firewall 
 systemctl disable firewalld &>/dev/null
-Stat 0 "Disabling Firewall"
 
 ## Remove cockpit message 
 yum remove insights-client -y
