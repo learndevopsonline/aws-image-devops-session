@@ -116,6 +116,9 @@ yum clean all &>/dev/null
 rm -rf /var/lib/yum/*  /tmp/*
 sed -i -e '/aws-hostname/ d' -e '$ a r /tmp/aws-hostname' /usr/lib/tmpfiles.d/tmp.conf
 
+# Disable tmpfs
+systemctl mask tmp.mount
+
 # labauto Scripts
 curl -s https://raw.githubusercontent.com/learndevopsonline/labautomation/master/labauto >/bin/labauto
 chmod +x /bin/labauto
