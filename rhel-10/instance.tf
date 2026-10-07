@@ -72,10 +72,10 @@ resource "null_resource" "ami-create-apply" {
 
 resource "aws_ami_from_instance" "ami" {
   depends_on                      = [null_resource.ami-create-apply]
-  name                            = "RHEL-10-DevOps-Practice"
+  name                            = "Redhat-10-DevOps-Practice"
   source_instance_id              = aws_instance.ami-instance.id
   tags                            = {
-    Name                          = "RHEL-10-DevOps-Practice"
+    Name                          = "Redhat-10-DevOps-Practice"
   }
 }
 
