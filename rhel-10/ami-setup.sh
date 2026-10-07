@@ -123,6 +123,8 @@ systemctl mask tmp.mount
 
 # labauto Scripts
 curl -s https://raw.githubusercontent.com/learndevopsonline/labautomation/master/labauto >/bin/labauto
+## labauto allows only el8/el9 by default
+sed -i -e 's/^  el8|el9) : ;;/  el8|el9|el10) : ;;/' /bin/labauto
 chmod +x /bin/labauto
 
 curl -s https://raw.githubusercontent.com/learndevopsonline/labautomation/master/awsauto >/bin/awsauto
