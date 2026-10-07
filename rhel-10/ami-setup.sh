@@ -55,7 +55,7 @@ echo "@reboot passwd -u ec2-user" >>/var/spool/cron/root
 chmod 600 /var/spool/cron/root
 
 ## Enable Password Logins
-sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config /etc/ssh/sshd_config.d/50-cloud-init.conf
+sed -i -e '/^PasswordAuthentication/ c PasswordAuthentication yes' -e '/^#\?PermitRootLogin/ c PermitRootLogin yes' /etc/ssh/sshd_config /etc/ssh/sshd_config.d/50-cloud-init.conf
 
 
 ## Setup user passwords
