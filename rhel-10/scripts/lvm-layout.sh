@@ -85,10 +85,17 @@ grep -q '^\s*use_devicesfile = 0' $T/etc/lvm/lvm.conf
 ## Bootloader + initramfs inside the new tree
 for d in dev proc sys run; do mount --bind /$d $T/$d; done
 
+## Base image keeps /boot inside /, so BLS paths start with /boot; on a separate /boot they must not
 CMDLINE="root=/dev/mapper/RootVG-rootVol rd.lvm.lv=RootVG/rootVol rd.lvm.lv=RootVG/swapVol"
-chroot $T grubby --update-kernel=ALL --remove-args="root resume" --args="$CMDLINE"
-[ -f $T/etc/kernel/cmdline ] && chroot $T sh -c "sed -i -e 's/root=[^ ]*//' /etc/kernel/cmdline && sed -i -e 's|^|$CMDLINE |' /etc/kernel/cmdline"
-sed -i -e '/^GRUB_CMDLINE_LINUX=/ s/root=[^ "]*//' -e "/^GRUB_CMDLINE_LINUX=/ s|=\"|=\"$CMDLINE |" $T/etc/default/grub
+sed -i -E -e 's#^(linux|initrd) /boot/#\1 /#' \
+  -e '/^options/ s/ (root|resume|rd\.lvm\.lv)=[^ ]*//g' -e "/^options/ s|\$| $CMDLINE|" \
+  $T/boot/loader/entries/*.conf
+if [ -f $T/etc/kernel/cmdline ]; then
+  sed -i -E -e 's/(^| )(root|resume|rd\.lvm\.lv)=[^ ]*//g' -e "s|\$| $CMDLINE|" $T/etc/kernel/cmdline
+fi
+sed -i -E -e '/^GRUB_CMDLINE_LINUX=/ s/(root|resume|rd\.lvm\.lv)=[^ "]*//g' -e "/^GRUB_CMDLINE_LINUX=/ s|=\"|=\"$CMDLINE |" $T/etc/default/grub
+sed -i -e '/^GRUB_DISABLE_OS_PROBER/ d' $T/etc/default/grub
+echo 'GRUB_DISABLE_OS_PROBER=true' >>$T/etc/default/grub
 
 for kver in $(ls $T/lib/modules); do
   chroot $T dracut -f --no-hostonly --add lvm /boot/initramfs-$kver.img $kver
@@ -108,8 +115,11 @@ chroot $T grub2-mkconfig -o /boot/grub2/grub.cfg
 ## Relabel SELinux contexts on first boot from the new disk
 touch $T/.autorelabel
 
-echo "--- kernel entries"
-chroot $T grubby --info=ALL | grep -E '^(kernel|args)'
+echo "--- boot entries"
+grep -E '^(linux|initrd|options)' $T/boot/loader/entries/*.conf
+ls $T/boot/vmlinuz-* $T/boot/initramfs-*
+grep -q 'root=/dev/mapper/RootVG-rootVol' $T/boot/loader/entries/*.conf
+if grep -q '^linux /boot/' $T/boot/loader/entries/*.conf; then echo 'BLS paths not fixed'; exit 1; fi
 lsblk $DISK
 
 ## Unmount
