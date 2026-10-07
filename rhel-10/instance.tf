@@ -11,14 +11,14 @@ terraform {
   }
 }
 
-// Latest official Red Hat RHEL 10 AMI (Red Hat owner id 309956199498)
+// Latest official Red Hat RHEL 10.2 AMI (Red Hat owner id 309956199498)
 data "aws_ami" "rhel10" {
   most_recent = true
   owners      = ["309956199498"]
 
   filter {
     name   = "name"
-    values = ["RHEL-10.*_HVM-*-x86_64-*-Hourly2-GP3"]
+    values = ["RHEL-10.2.*_HVM*-x86_64-*-Hourly2-GP3"]
   }
 }
 
