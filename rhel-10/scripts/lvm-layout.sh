@@ -34,12 +34,11 @@ pvcreate -ff -y ${P}4
 vgcreate RootVG ${P}4
 lvcreate -y -L 6G -n rootVol   RootVG
 lvcreate -y -L 2G -n swapVol   RootVG
-lvcreate -y -L 1G -n homeVol   RootVG
 lvcreate -y -L 2G -n varVol    RootVG
 lvcreate -y -L 2G -n varTmpVol RootVG
 lvcreate -y -L 2G -n logVol    RootVG
-lvcreate -y -l 100%FREE -n auditVol RootVG
-for lv in rootVol homeVol varVol varTmpVol logVol auditVol; do
+lvcreate -y -l 100%FREE -n homeVol RootVG
+for lv in rootVol homeVol varVol varTmpVol logVol; do
   mkfs.xfs -f /dev/mapper/RootVG-$lv
 done
 mkswap /dev/mapper/RootVG-swapVol
@@ -56,8 +55,6 @@ mount /dev/mapper/RootVG-varVol $T/var
 mkdir -p $T/var/tmp $T/var/log
 mount /dev/mapper/RootVG-varTmpVol $T/var/tmp
 mount /dev/mapper/RootVG-logVol $T/var/log
-mkdir -p $T/var/log/audit
-mount /dev/mapper/RootVG-auditVol $T/var/log/audit
 
 ## Copy the running system
 rsync -aAXHx --numeric-ids / $T/
@@ -70,7 +67,6 @@ cat >$T/etc/fstab <<EOF
 /dev/mapper/RootVG-homeVol   /home          xfs   defaults,rw  0 0
 /dev/mapper/RootVG-varVol    /var           xfs   defaults,rw  0 0
 /dev/mapper/RootVG-logVol    /var/log       xfs   defaults,rw  0 0
-/dev/mapper/RootVG-auditVol  /var/log/audit xfs   defaults,rw  0 0
 /dev/mapper/RootVG-varTmpVol /var/tmp       xfs   defaults,rw  0 0
 /dev/mapper/RootVG-swapVol   none           swap  defaults     0 0
 LABEL=boot_disk              /boot          xfs   defaults,rw  0 0
@@ -124,7 +120,7 @@ lsblk $DISK
 
 ## Unmount
 for d in run sys proc dev; do umount $T/$d; done
-umount $T/var/log/audit $T/var/log $T/var/tmp $T/var $T/home $T/boot/efi $T/boot $T
+umount $T/var/log $T/var/tmp $T/var $T/home $T/boot/efi $T/boot $T
 vgchange -an RootVG
 sync
 echo "LVM layout ready on $DISK"
