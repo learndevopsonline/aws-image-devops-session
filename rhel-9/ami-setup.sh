@@ -105,6 +105,9 @@ cp /tmp/aws-image-devops-session/rhel-9/scripts/set-hostname /bin/set-prompt
 cp /tmp/aws-image-devops-session/rhel-9/scripts/mysql_secure_installation /usr/sbin/mysql_secure_installation
 chmod +x /bin/set-prompt /usr/sbin/mysql_secure_installation
 
+## Drop /var/log/audit volume, give its space to /home
+bash /tmp/aws-image-devops-session/rhel-9/scripts/merge-audit-into-home.sh
+
 # Install AWS CLI
 cd /tmp
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
